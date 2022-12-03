@@ -1,0 +1,2 @@
+restTemplate : 
+   serverPath: "http://localhost:8081/response/cvu"
