@@ -19,11 +19,14 @@ import lombok.NoArgsConstructor;
 @Data @AllArgsConstructor @NoArgsConstructor
 public class CVUEntity {
 	
+    @Id @Column(name = "cvu_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long cvuId;
+
 	private Long pspId;
 	
 	private Long ctaId;
 	
-	@Id @Column(nullable = false)
 	private String cvu;
 	
 	private String tipo;
