@@ -19,4 +19,5 @@ public class ExampleRequestController {
 	public String getMessageFromResponseApi() {
 		return exampleRequestService.getMessageFromResponseApi();
 	}
+	
 }
