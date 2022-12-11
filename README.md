@@ -1,6 +1,7 @@
 # rest-connection-example
+a) Importar colección Postman desde el directorio etc/postman de Api Request
 
-Las apis deben ejecutarse en el siguiente orden:
+b) Las apis deben ejecutarse en el siguiente orden:
   1) Api Response
   2) Api Request
 
