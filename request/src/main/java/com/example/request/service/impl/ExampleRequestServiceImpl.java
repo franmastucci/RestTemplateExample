@@ -6,21 +6,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.example.request.model.dto.CVUDto;
 import com.example.request.model.dto.CVURequest;
 import com.example.request.model.dto.CVUResponse;
 import com.example.request.service.ExampleRequestService;
@@ -31,23 +23,34 @@ public class ExampleRequestServiceImpl implements ExampleRequestService {
 	@Value("${restTemplate.serverPath}")
 	private String API_RESPONSE_SERVER_PATH;
 	
-	private RestTemplate restTemplate = new RestTemplate();
+	private final RestTemplate appRestClient;
 	
-	private HttpHeaders headers = new HttpHeaders();
+	private HttpHeaders headers;
+	  
 	
+    @Autowired
+    public ExampleRequestServiceImpl(@Qualifier("appRestClient") RestTemplate appRestClient) {
+        this.appRestClient = appRestClient;
+        this.headers = new HttpHeaders();
+    }
 	
 	public ResponseEntity<CVUResponse> saveFromResponseApi(String token, CVURequest request)  {
+        return this.configureEntityResponse(token, request);
+	}
 
+	private ResponseEntity<CVUResponse> configureEntityResponse(String token, CVURequest request) throws RestClientException {
+		return appRestClient.exchange(API_RESPONSE_SERVER_PATH, HttpMethod.POST, this.configureEntityRequest(request, token), CVUResponse.class);
+	}
+
+	private HttpEntity<CVURequest> configureEntityRequest(CVURequest request, String token) {
+		this.configureHeaders(token);
+		return new HttpEntity<CVURequest>(request, headers);
+	}
+
+	private void configureHeaders(String token) {
 		headers.set("Content-Type", MediaType.APPLICATION_JSON_VALUE);
 		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 		headers.add("Authorization", token);
-		
-        HttpEntity<CVURequest> entity = new HttpEntity<CVURequest>(request, headers);
-        ResponseEntity<CVUResponse> response = restTemplate.exchange(API_RESPONSE_SERVER_PATH, HttpMethod.POST, entity, CVUResponse.class);
-        
-        System.out.println("Result - status ("+ response.getStatusCode() + ") has body: " + response.hasBody());
-		
-        return response;
 	}
 	 
 }
