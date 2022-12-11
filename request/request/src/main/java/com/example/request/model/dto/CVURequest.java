@@ -1,9 +1,11 @@
 package com.example.request.model.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
-@Data @Builder
+@Data @Builder @AllArgsConstructor @RequiredArgsConstructor
 public class CVURequest {
 	
 	private Long pspId;
