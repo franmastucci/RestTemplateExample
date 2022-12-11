@@ -20,6 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import feign.Response;
+
+import com.example.request.config.client.CVUClient;
 import com.example.request.model.dto.CVUDto;
 import com.example.request.model.dto.CVURequest;
 import com.example.request.model.dto.CVUResponse;
@@ -28,10 +32,8 @@ import com.example.request.service.ExampleRequestService;
 @Service
 public class ExampleRequestServiceImpl implements ExampleRequestService {
 	
-	@Value("${restTemplate.serverPath}")
-	private String API_RESPONSE_SERVER_PATH;
-	
-	private RestTemplate restTemplate = new RestTemplate();
+	@Autowired
+	private CVUClient cvuClient;
 	
 	private HttpHeaders headers = new HttpHeaders();
 	
@@ -42,12 +44,7 @@ public class ExampleRequestServiceImpl implements ExampleRequestService {
 		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 		headers.add("Authorization", token);
 		
-        HttpEntity<CVURequest> entity = new HttpEntity<CVURequest>(request, headers);
-        ResponseEntity<CVUResponse> response = restTemplate.exchange(API_RESPONSE_SERVER_PATH, HttpMethod.POST, entity, CVUResponse.class);
-        
-        System.out.println("Result - status ("+ response.getStatusCode() + ") has body: " + response.hasBody());
-		
-        return response;
+        return  cvuClient.getCVU(token, request);
 	}
 	 
 }
