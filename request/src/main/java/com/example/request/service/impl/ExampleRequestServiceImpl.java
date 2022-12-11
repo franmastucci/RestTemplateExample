@@ -24,7 +24,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.Response;
 
 import com.example.request.config.client.CVUClient;
-import com.example.request.model.dto.CVUDto;
 import com.example.request.model.dto.CVURequest;
 import com.example.request.model.dto.CVUResponse;
 import com.example.request.service.ExampleRequestService;
