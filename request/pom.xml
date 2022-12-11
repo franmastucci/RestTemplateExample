@@ -22,7 +22,7 @@
 		<spring-cloud.version>2021.0.5</spring-cloud.version>
 	</properties>
 	
-		<dependencyManagement>
+	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
