@@ -1,4 +1,8 @@
 # rest-connection-example
 
+Las apis deben ejecutarse en el siguiente orden:
+  1) Api Response
+  2) Api Request
+
 
 ![High Level View](https://user-images.githubusercontent.com/20268654/206889677-ee6ecbda-ef26-4593-9388-44e7d10f869c.png)
