@@ -15,6 +15,6 @@ import com.example.request.model.dto.CVUResponse;
 public interface CVUClient {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/response/cvu")
-	ResponseEntity<CVUResponse> getCVU(@RequestHeader("Authorization") String token, @RequestBody CVURequest entity);
+	ResponseEntity<CVUResponse> postCVU(@RequestHeader("Authorization") String token, @RequestBody CVURequest entity);
 
 }

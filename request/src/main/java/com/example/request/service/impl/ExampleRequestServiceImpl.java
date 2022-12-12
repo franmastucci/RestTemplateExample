@@ -43,7 +43,7 @@ public class ExampleRequestServiceImpl implements ExampleRequestService {
 		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 		headers.add("Authorization", token);
 		
-        return  cvuClient.getCVU(token, request);
+        return  cvuClient.postCVU(token, request);
 	}
 	 
 }
