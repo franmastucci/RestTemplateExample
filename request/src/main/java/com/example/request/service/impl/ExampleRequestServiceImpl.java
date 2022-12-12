@@ -15,12 +15,9 @@ public class ExampleRequestServiceImpl implements ExampleRequestService {
 	@Autowired
 	private CVUClient cvuClient;
 		
-<<<<<<< HEAD
-        return  cvuClient.postCVU(token, request);
-=======
+
 	public ResponseEntity<CVUResponse> saveFromResponseApi(String token, CVURequest request)  {
-        return  cvuClient.getCVU(token, request);
->>>>>>> 00fe36b4ffa96648a64a4818761c305d4e1f8e02
+		return  cvuClient.postCVU(token, request);
 	}
 	 
 }
